@@ -1,25 +1,23 @@
 /*
- * jQuery Tiny Pub/Sub
+ * Modified by Jasper Palfree (wellcaffeinated.net)
+ *
+ * Originally: jQuery Tiny Pub/Sub
  * https://github.com/cowboy/jquery-tiny-pubsub
  *
  * Copyright (c) 2013 "Cowboy" Ben Alman
  * Licensed under the MIT license.
  */
 
-(function($) {
+(function($, o) {
 
-  var o = $({});
-
-  $.subscribe = function() {
-    o.on.apply(o, arguments);
-  };
-
-  $.unsubscribe = function() {
-    o.off.apply(o, arguments);
-  };
-
-  $.publish = function() {
-    o.trigger.apply(o, arguments);
-  };
+  o = $({});
+  
+  $.each({
+      on: 'subscribe',
+      off: 'unsubscribe',
+      trigger: 'publish'
+  }, function(k, v){
+      $[v] = $.proxy(o[k], o);
+  });
 
 }(jQuery));
